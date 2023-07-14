@@ -54,7 +54,7 @@ const answerButton = document.getElementById("answer-Buttons");
 const nextButton = document.getElementById("next-btn");
 
 var currentQuestionIndex = 0;
-var  score = 0;
+var score = 0;
 
 function startQuiz() {
   currentQuestionIndex = 0;
@@ -65,7 +65,6 @@ function startQuiz() {
 }
 function showQuestion() {
   let currentQuestion = questions[currentQuestionIndex];
-  console.log(currentQuestion);
 
   let questionNo = currentQuestionIndex + 1;
   questionElement.innerHTML = questionNo + "." + currentQuestion.question;
@@ -77,20 +76,19 @@ function showQuestion() {
     button.classList.add("btn");
     answerButton.appendChild(button);
     if (answer.correct) {
-      button.correct = answer.correct;
-      console.log(button.dataset.correct,"81");  
+       button.correct = answer.correct;
+       console.log(button.dataset.correct,"81");
 
-      console.log(answer.correct, "83");
-    }
+       console.log(answer.correct, "83");
+     }
     button.addEventListener("click", selectAnswer);
   });
 }
-function resetState(){
-  nextButton.style.display="none";
-  
-  while(answerButton.firstChild){
-    answerButton.removeChild (answerButton.firstChild); 
+function resetState() {
+  nextButton.style.display = "none";
 
+  while (answerButton.firstChild) {
+    answerButton.removeChild(answerButton.firstChild);
   }
 }
 function selectAnswer(e) {
@@ -115,9 +113,9 @@ function selectAnswer(e) {
 function showScore() {
   resetState();
   questionElement.innerHTML =
-    " you Scored" + score + " out of" + questions.length + "!";
-     nextButton.innerHTML= "Play Again"; 
-     nextButton.style.display= "block"
+    " you Scored  " + score + " out of" + questions.length + "!";
+  nextButton.innerHTML = "Play Again";
+  nextButton.style.display = "block";
 }
 function handleNextButton() {
   currentQuestionIndex++;
@@ -129,6 +127,10 @@ function handleNextButton() {
 }
 nextButton.addEventListener("click", () => {
   if (currentQuestionIndex < questions.length) {
+    Array.from(answerButton.children).forEach((button) => {
+      button.classList.add("hide");
+    });
+
     handleNextButton();
   } else {
     startQuiz();
